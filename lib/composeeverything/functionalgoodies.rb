@@ -5,27 +5,21 @@ module ComposeEverything::FunctionalGoodies
 
   def f_add(idx, output)
     union ->(x) {
-      if x == idx then ouput end
+      output if x == idx
     }
   end
 
   def intersection(with)
     ->(x) {
       a = self[x]
-      if a == with[x]
-        a
-      end
+      a == with[x] ? a : nil
     }
   end
 
   def union(with)
     ->(x) {
       a = self[x]
-      if y.nil?
-        a
-      else
-        with[x]
-      end
+      y.nil? ? a : with[x]
     }
   end
 
@@ -39,9 +33,7 @@ module ComposeEverything::FunctionalGoodies
     ->(x) {
       a = self[x]
       b = removed[x]
-      if a != b
-        a
-      end
+      a != b ? a : nil
     }
   end
 end
