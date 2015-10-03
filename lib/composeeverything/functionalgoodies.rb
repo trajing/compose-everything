@@ -3,6 +3,29 @@ module ComposeEverything::FunctionalGoodies
     ->(x) { with[self[x]] }
   end
 
+  def f_map(func)
+    compose(func)
+  end
+
+  def f_flat_map(func)
+    ->(x) {
+      self[x].f_map(func)
+    }
+  end
+
+  def f_filter(func)
+    filter_indexed ->(idx, x) {
+      func(x)
+    }
+  end
+
+  def filter_indexed(func)
+    ->(x) {
+      a = self[x]
+      func[x, a] ? a : nil
+    }
+  end
+
   def f_add(idx, output)
     union ->(x) {
       output if x == idx
@@ -10,9 +33,8 @@ module ComposeEverything::FunctionalGoodies
   end
 
   def intersection(with)
-    ->(x) {
-      a = self[x]
-      a == with[x] ? a : nil
+    filter_indexed ->(idx, x) {
+      x == with[idx]
     }
   end
 
@@ -30,10 +52,8 @@ module ComposeEverything::FunctionalGoodies
   end
 
   def remove(removed)
-    ->(x) {
-      a = self[x]
-      b = removed[x]
-      a != b ? a : nil
+    filter_indexed ->(idx, x) {
+      removed[idx] != x
     }
   end
 end
