@@ -1,3 +1,3 @@
 module ComposeEverything; end
 
-require 'composeeverything/functionalgoodies'
+require_relative 'composeeverything/functionalgoodies'
