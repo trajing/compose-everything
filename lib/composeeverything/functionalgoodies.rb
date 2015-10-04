@@ -15,7 +15,7 @@ module ComposeEverything::FunctionalGoodies
 
   def f_filter(func)
     filter_indexed ->(idx, x) {
-      func(x)
+      func[x]
     }
   end
 
