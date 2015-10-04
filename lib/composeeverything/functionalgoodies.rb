@@ -41,7 +41,7 @@ module ComposeEverything::FunctionalGoodies
   def union(with)
     ->(x) {
       a = self[x]
-      y.nil? ? a : with[x]
+      a.nil? ? a : with[x]
     }
   end
 
