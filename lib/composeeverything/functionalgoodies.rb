@@ -40,8 +40,16 @@ module ComposeEverything::FunctionalGoodies
 
   def union(with)
     ->(x) {
-      a = self[x]
-      a.nil? ? a : with[x]
+      begin
+        a = self[x]
+        a.nil? ? with[x] : a
+      rescue Exception
+        begin
+          with[x]
+        rescue
+          nil
+        end
+      end
     }
   end
 
