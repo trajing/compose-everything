@@ -40,16 +40,8 @@ module ComposeEverything::FunctionalGoodies
 
   def union(with)
     ->(x) {
-      begin
-        a = self[x]
-        a.nil? ? with[x] : a
-      rescue Exception
-        begin
-          with[x]
-        rescue
-          nil
-        end
-      end
+      a = self.f_get x
+      a.nil? ? with[x] : a
     }
   end
 
@@ -63,5 +55,13 @@ module ComposeEverything::FunctionalGoodies
     filter_indexed ->(idx, x) {
       removed[idx] != x
     }
+  end
+
+  protected def f_get(idx)
+    begin
+      self[idx]
+    rescue Exception
+      nil
+    end
   end
 end
