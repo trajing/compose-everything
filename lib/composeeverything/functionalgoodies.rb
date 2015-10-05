@@ -57,9 +57,9 @@ module ComposeEverything::FunctionalGoodies
     }
   end
 
-  protected def f_get(idx)
+  protected def f_get(x)
     begin
-      self[idx]
+      self[x]
     rescue Exception
       nil
     end
