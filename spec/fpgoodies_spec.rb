@@ -19,12 +19,19 @@ describe ComposeEverything::FunctionalGoodies do
 
     it "Unions" do
       c = a.union hashmap
-      expect(c[0]).to eq 1
-      expect(c[1]).to eq 2
-      expect(c[2]).to eq 3
-      expect(c[:hello]).to eq 4
-      expect(c[:meow]).to eq 5
-      expect(c[90]).to eq nil
+      d = hashmap.union a
+
+      def test_unions(x)
+        expect(x[0]).to eq 1
+        expect(x[1]).to eq 2
+        expect(x[2]).to eq 3
+        expect(x[:hello]).to eq 4
+        expect(x[:meow]).to eq 5
+        expect(x[90]).to eq nil
+      end
+
+      test_unions c
+      test_unions d
     end
   end
 
