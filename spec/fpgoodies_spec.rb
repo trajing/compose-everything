@@ -77,8 +77,10 @@ describe ComposeEverything::FunctionalGoodies do
         1
       elsif x == 'hello'
         2
-      else
+      elsif x == 'meow'
         3
+      else
+        nil
       end
     end
     c = { 1 => 'life', 2 => 'world', 3 => 'striking' }
@@ -88,6 +90,14 @@ describe ComposeEverything::FunctionalGoodies do
       expect(d[0]).to eq 'life'
       expect(d[1]).to eq 'world'
       expect(d[2]).to eq 'striking'
+    end
+
+    it 'Filters' do
+      d = b.f_filter ->(x) { x.odd? }
+      expect(d['hi']).to eq 1
+      expect(d['hello']).to eq nil
+      expect(d['meow']).to eq 3
+      expect(d['life']).to eq nil
     end
   end
 end
