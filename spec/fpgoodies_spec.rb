@@ -1,8 +1,7 @@
 require 'spec_helper'
 require 'linked_list'
 
-using ComposeEverything::Hash
-using ComposeEverything::Proc
+using ComposeEverything::Refinements
 
 describe ComposeEverything::FunctionalGoodies do
   context 'When implemented on a custom class' do

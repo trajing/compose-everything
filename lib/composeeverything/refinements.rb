@@ -1,27 +1,35 @@
-# Refinement to add the FunctionalGoodies module to Hash
-module ComposeEverything::Hash
-  refine Hash do
-    include ComposeEverything::FunctionalGoodies
+# Refinements to add the FunctionalGoodies module to built-ins
+module ComposeEverything::Refinements
+  # Adds to Hash
+  module HashRefine
+    refine Hash do
+      include ComposeEverything::FunctionalGoodies
+    end
   end
-end
 
-# Refinement to add the FunctionalGoodies module to Array
-module ComposeEverything::Array
-  refine Array do
-    include ComposeEverything::FunctionalGoodies
+  # Adds to Array
+  module ArrayRefine
+    refine Array do
+      include ComposeEverything::FunctionalGoodies
+    end
   end
-end
 
-# Refinement to add the FunctionalGoodies module to Proc
-module ComposeEverything::Proc
-  refine Proc do
-    include ComposeEverything::FunctionalGoodies
+  # Adds to Proc
+  module ProcRefine
+    refine Proc do
+      include ComposeEverything::FunctionalGoodies
+    end
   end
-end
 
-# Refinement to add the FunctionalGoodies module to Thread
-module ComposeEverything::Thread
-  refine Thread do
-    include ComposeEverything::FunctionalGoodies
+  # Adds to thread
+  module ThreadRefine
+    refine Thread do
+      include ComposeEverything::FunctionalGoodies
+    end
   end
+
+  include HashRefine
+  include ThreadRefine
+  include ProcRefine
+  include ArrayRefine
 end
