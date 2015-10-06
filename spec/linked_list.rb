@@ -1,3 +1,4 @@
+# Linked List implementation used for testing
 class LinkedList
   include ComposeEverything::FunctionalGoodies
 
@@ -10,7 +11,7 @@ class LinkedList
 
   def [](x)
     if x < 0
-      raise "Index out of bounds on LinkedList"
+      fail 'Index out of bounds on LinkedList'
     elsif x == 0
       @head
     else
