@@ -7,7 +7,7 @@ using ComposeEverything::Proc
 describe ComposeEverything::FunctionalGoodies do
   context "When implemented on a custom class" do
     a = LinkedList.from_arr([1, 2, 3])
-    b = LinkedList.from_arr(["", "hi", "hello", "meow"])
+    b = LinkedList.from_arr([1, "hi", "hello", "meow"])
     hashmap = {:hello => 4, :meow => 5}
 
     it "Implements compose" do
@@ -32,6 +32,41 @@ describe ComposeEverything::FunctionalGoodies do
 
       test_unions c
       test_unions d
+    end
+
+    it "Intersects" do
+      c = a.intersect b
+
+      expect(c[0]).to eq 1
+      expect(c[1]).to eq nil
+    end
+
+    it "Maps" do
+      c = a.f_map ->(x) { x * x }
+      expect(c[0]).to eq 1
+      expect(c[1]).to eq 4
+      expect(c[2]).to eq 9
+    end
+
+    it "Filters" do
+      c = a.f_filter ->(x) { x.odd? }
+      expect(c[0]).to eq 1
+      expect(c[1]).to eq nil
+      expect(c[2]).to eq 3
+    end
+
+    it "Removes" do
+      c = a.remove b
+      expect(c[0]).to eq nil
+      expect(c[1]).to eq 2
+      expect(c[2]).to eq 3
+    end
+
+    it "Deletes" do
+      c = a.f_delete 2
+      expect(c[0]).to eq 1
+      expect(c[1]).to eq nil
+      expect(c[2]).to eq 3
     end
   end
 

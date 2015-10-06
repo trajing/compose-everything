@@ -32,7 +32,7 @@ module ComposeEverything::FunctionalGoodies
     }
   end
 
-  def intersection(with)
+  def intersect(with)
     filter_indexed ->(idx, x) {
       x == with[idx]
     }
