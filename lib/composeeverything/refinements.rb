@@ -1,5 +1,7 @@
-# Refinements to add the FunctionalGoodies module to built-ins
-module ComposeEverything::Refinements
+# Top-level module
+module ComposeEverything
+  # All the refinements to add FunctionalGoodies to built-ins
+  
   # Adds to Hash
   module HashRefine
     refine Hash do
@@ -27,9 +29,12 @@ module ComposeEverything::Refinements
       include ComposeEverything::FunctionalGoodies
     end
   end
-
-  include HashRefine
-  include ThreadRefine
-  include ProcRefine
-  include ArrayRefine
+  
+  # All the refinements for this gem
+  module Refinements
+    include HashRefine
+    include ThreadRefine
+    include ProcRefine
+    include ArrayRefine
+  end
 end
