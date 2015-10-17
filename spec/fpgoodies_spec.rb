@@ -78,8 +78,6 @@ describe ComposeEverything::FunctionalGoodies do
         2
       elsif x == 'meow'
         3
-      else
-        nil
       end
     end
     c = { 1 => 'life', 2 => 'world', 3 => 'striking' }

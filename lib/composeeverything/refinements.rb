@@ -1,7 +1,4 @@
-# Top-level module
 module ComposeEverything
-  # All the refinements to add FunctionalGoodies to built-ins
-  
   # Adds to Hash
   module HashRefine
     refine Hash do
@@ -29,12 +26,40 @@ module ComposeEverything
       include ComposeEverything::FunctionalGoodies
     end
   end
-  
-  # All the refinements for this gem
+
+  # Refinements to add the FunctionalGoodies module to built-ins as well as the
+  # execution of lambdas with all refinements and addition of refinements
   module Refinements
     include HashRefine
     include ThreadRefine
     include ProcRefine
     include ArrayRefine
+
+    class << self
+      attr_reader :refinements
+    end
+
+    @refinements = [HashRefine, ThreadRefine, ProcRefine, ArrayRefine]
+
+    def self.add(x)
+      @refinements.push x
+    end
+
+    def self.remove(x)
+      @refinements.delete x
+    end
+
+    def self.make(func, this)
+      klass = Object.const_set 'MakeClass', Class.new
+      klass.class_eval do
+        ComposeEverything::Refinements.refinements.each do |refinement|
+          using refinement
+        end
+      end
+
+      lambda do |*params|
+        klass.instance_eval func[this, *params]
+      end
+    end
   end
 end
